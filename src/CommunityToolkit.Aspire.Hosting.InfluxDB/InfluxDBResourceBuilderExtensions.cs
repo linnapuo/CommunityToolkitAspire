@@ -51,12 +51,12 @@ public static class InfluxDBResourceBuilderExtensions
             }
         });
 
-        //var healthCheckKey = $"{name}_check";
-        //builder.Services
-        //    .AddHealthChecks()
-        //    .AddInfluxDB(
-        //        sp => connectionString ?? throw new InvalidOperationException("Connection string is unavailable"),
-        //        name: healthCheckKey);
+        var healthCheckKey = $"{name}_check";
+        builder.Services
+            .AddHealthChecks()
+            .AddInfluxDB(
+                sp => $"{connectionString ?? throw new InvalidOperationException("Connection string is unavailable")}?token=my-super-secret-auth-token",
+                name: healthCheckKey);
 
         var state = new CustomResourceSnapshot
         {
@@ -70,7 +70,12 @@ public static class InfluxDBResourceBuilderExtensions
             .WithEndpoint(port: port, targetPort: InfluxDBServerPort, scheme: influxDBServer.PrimaryEndpointName)
             .WithImage(InfluxDBContainerImageTags.Image, InfluxDBContainerImageTags.Tag)
             .WithImageRegistry(InfluxDBContainerImageTags.Registry)
-            //.WithHealthCheck(healthCheckKey)
-            .WithInitialState(state);
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_MODE", "setup")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_USERNAME", "testuser")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_PASSWORD", "testpass")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_ORG", "testorg")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_BUCKET", "testbucket")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_ADMIN_TOKEN", "my-super-secret-auth-token")
+            .WithHealthCheck(healthCheckKey);
     }
 }
