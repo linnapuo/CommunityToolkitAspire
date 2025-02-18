@@ -1,0 +1,24 @@
+#nullable enable
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.Certificate.get -> System.Security.Cryptography.X509Certificates.X509Certificate2?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.Certificate.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePassword.get -> string?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePassword.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.get -> string?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.get -> string?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DatabaseName.get -> string?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DatabaseName.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableHealthChecks.get -> bool
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableHealthChecks.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableTracing.get -> bool
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableTracing.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.HealthCheckTimeout.get -> int?
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.HealthCheckTimeout.set -> void
+CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.InfluxDBClientSettings() -> void
+Microsoft.Extensions.Hosting.InfluxDBClientExtension
+static Microsoft.Extensions.Hosting.InfluxDBClientExtension.AddInfluxDBClient(this Microsoft.Extensions.Hosting.IHostApplicationBuilder! builder, CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings! settings) -> void
+static Microsoft.Extensions.Hosting.InfluxDBClientExtension.AddInfluxDBClient(this Microsoft.Extensions.Hosting.IHostApplicationBuilder! builder, string! connectionName, System.Action<CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings!>? configureSettings = null) -> void
+static Microsoft.Extensions.Hosting.InfluxDBClientExtension.AddKeyedInfluxDBClient(this Microsoft.Extensions.Hosting.IHostApplicationBuilder! builder, object! serviceKey, CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings! settings) -> void
+static Microsoft.Extensions.Hosting.InfluxDBClientExtension.AddKeyedInfluxDBClient(this Microsoft.Extensions.Hosting.IHostApplicationBuilder! builder, object! serviceKey, string! connectionName, System.Action<CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings!>? configureSettings = null) -> void

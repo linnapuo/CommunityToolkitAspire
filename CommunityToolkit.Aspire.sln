@@ -373,6 +373,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityToolkit.Aspire.Hos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityToolkit.Aspire.Hosting.InfluxDB.Tests", "tests\CommunityToolkit.Aspire.Hosting.InfluxDB.Tests\CommunityToolkit.Aspire.Hosting.InfluxDB.Tests.csproj", "{A08AC46A-7B9B-41F6-AFAE-9BA9892DC223}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityToolkit.Aspire.InfluxDB.Client", "src\CommunityToolkit.Aspire.InfluxDB.Client\CommunityToolkit.Aspire.InfluxDB.Client.csproj", "{C1B07472-68B4-75F4-BC5E-7F0AD42C1480}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -979,6 +981,10 @@ Global
 		{A08AC46A-7B9B-41F6-AFAE-9BA9892DC223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A08AC46A-7B9B-41F6-AFAE-9BA9892DC223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A08AC46A-7B9B-41F6-AFAE-9BA9892DC223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1B07472-68B4-75F4-BC5E-7F0AD42C1480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B07472-68B4-75F4-BC5E-7F0AD42C1480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B07472-68B4-75F4-BC5E-7F0AD42C1480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B07472-68B4-75F4-BC5E-7F0AD42C1480}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1166,6 +1172,7 @@ Global
 		{F05AD89D-3070-05C0-20CE-E474818442BB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{F31461A2-7D5A-CF7E-6155-AE6DD4E5D099} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{A08AC46A-7B9B-41F6-AFAE-9BA9892DC223} = {899F0713-7FC6-4750-BAFC-AC650B35B453}
+		{C1B07472-68B4-75F4-BC5E-7F0AD42C1480} = {414151D4-7009-4E78-A5C6-D99EBD1E67D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08B1D4B8-D2C5-4A64-BB8B-E1A2B29525F0}

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\CommunityToolkit.Aspire.InfluxDB.Client\CommunityToolkit.Aspire.InfluxDB.Client.csproj" />
     <ProjectReference Include="..\CommunityToolkit.Aspire.Hosting.InfluxDB.ServiceDefaults\CommunityToolkit.Aspire.Hosting.InfluxDB.ServiceDefaults.csproj" />
   </ItemGroup>
 
