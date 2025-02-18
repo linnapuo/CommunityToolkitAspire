@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>An Aspire integration leveraging the InfluxDB container.</Description>
+    <AdditionalPackageTags>hosting influxdb</AdditionalPackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" />
+    <PackageReference Include="AspNetCore.HealthChecks.InfluxDB" />
+  </ItemGroup>
+
+</Project>
