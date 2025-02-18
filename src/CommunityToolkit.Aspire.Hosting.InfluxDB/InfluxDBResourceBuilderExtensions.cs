@@ -19,6 +19,7 @@ public static class InfluxDBResourceBuilderExtensions
     /// </summary>
     /// <param name="builder">The <see cref="IDistributedApplicationBuilder"/> to which the resource is added.</param>
     /// <param name="name">The name of the resource. This name will be used as the connection string name when referenced in a dependency.</param>
+    /// <param name="token">The parameter used to provide the operator token for the InfluxDB. If <see langword="null"/> a random token will be generated.</param>
     /// <param name="port">The host port used when launching the container. If null a random port will be assigned.</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
     /// <remarks>
@@ -33,12 +34,15 @@ public static class InfluxDBResourceBuilderExtensions
     public static IResourceBuilder<InfluxDBServerResource> AddInfluxDB(
         this IDistributedApplicationBuilder builder,
         [ResourceName] string name,
+        IResourceBuilder<ParameterResource>? token = null,
         int? port = null)
     {
         ArgumentNullException.ThrowIfNull(builder, nameof(builder));
         ArgumentNullException.ThrowIfNull(name, nameof(name));
 
-        var influxDBServer = new InfluxDBServerResource(name);
+        var tokenParameter = token?.Resource ?? ParameterResourceBuilderExtensions.CreateDefaultPasswordParameter(builder, $"{name}-token", special: false);
+
+        var influxDBServer = new InfluxDBServerResource(name, tokenParameter);
 
         string? connectionString = null;
         builder.Eventing.Subscribe<ConnectionStringAvailableEvent>(influxDBServer, async (@event, ct) =>
@@ -55,15 +59,8 @@ public static class InfluxDBResourceBuilderExtensions
         builder.Services
             .AddHealthChecks()
             .AddInfluxDB(
-                sp => $"{connectionString ?? throw new InvalidOperationException("Connection string is unavailable")}?token=my-super-secret-auth-token",
+                sp => connectionString ?? throw new InvalidOperationException("Connection string is unavailable"),
                 name: healthCheckKey);
-
-        var state = new CustomResourceSnapshot
-        {
-            State = new(KnownResourceStates.Running, KnownResourceStateStyles.Success),
-            ResourceType = "InfluxDB",
-            Properties = []
-        };
 
         return builder
             .AddResource(influxDBServer)
@@ -75,7 +72,10 @@ public static class InfluxDBResourceBuilderExtensions
             .WithEnvironment("DOCKER_INFLUXDB_INIT_PASSWORD", "testpass")
             .WithEnvironment("DOCKER_INFLUXDB_INIT_ORG", "testorg")
             .WithEnvironment("DOCKER_INFLUXDB_INIT_BUCKET", "testbucket")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_ADMIN_TOKEN", "my-super-secret-auth-token")
+            .WithEnvironment(context =>
+            {
+                context.EnvironmentVariables["DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"] = tokenParameter;
+            })
             .WithHealthCheck(healthCheckKey);
     }
 }

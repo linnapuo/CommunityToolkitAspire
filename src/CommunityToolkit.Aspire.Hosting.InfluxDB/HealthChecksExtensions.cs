@@ -59,20 +59,6 @@ internal static class HealthChecksExtensions
             throw new InvalidOperationException("Failed to generate a valid InfluxDB connection string. The result cannot be null or empty.");
         }
 
-        var connectionBuilder = new DbConnectionStringBuilder
-        {
-            ConnectionString = connectionString
-        };
-
-        if (connectionBuilder.TryGetValue("URL", out var url) && url is string serverUrl)
-        {
-            connectionString = serverUrl;
-        }
-        else
-        {
-            throw new InvalidOperationException("Connection string is unavailable");
-        }
-
         return connectionString;
     }
 }
