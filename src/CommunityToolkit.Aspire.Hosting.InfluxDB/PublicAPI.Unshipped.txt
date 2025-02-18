@@ -1,0 +1,12 @@
+#nullable enable
+Aspire.Hosting.ApplicationModel.InfluxDBServerResource
+Aspire.Hosting.ApplicationModel.InfluxDBServerResource.InfluxDBServerResource(string! name, bool isSecured = false) -> void
+Aspire.Hosting.ApplicationModel.InfluxDBServerResource.PrimaryEndpoint.get -> Aspire.Hosting.ApplicationModel.EndpointReference!
+Aspire.Hosting.ApplicationModel.InfluxDBServerResource.ConnectionStringExpression.get -> Aspire.Hosting.ApplicationModel.ReferenceExpression!
+Aspire.Hosting.InfluxDBResourceBuilderExtensions
+static Aspire.Hosting.InfluxDBResourceBuilderExtensions.AddInfluxDB(this Aspire.Hosting.IDistributedApplicationBuilder! builder, string! name, int? port = null) -> Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.InfluxDBServerResource!>!
+CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings
+CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.InfluxDBServerSettings() -> void
+CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.ServerUrl.get -> string?
+CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.ServerUrl.set -> void
+static CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.Unsecured() -> CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings!
