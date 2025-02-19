@@ -94,7 +94,7 @@ public class AddInfluxDBTests
     [Theory]
     [InlineData("data")]
     [InlineData(null)]
-    public void CorrectTargetPathOnVolumeMount(string? volumeName)
+    public void CorrectTargetPathOnDataVolumeMount(string? volumeName)
     {
         var builder = DistributedApplication.CreateBuilder();
         _ = builder.AddInfluxDB("influxdb").WithDataVolume(volumeName);
@@ -113,12 +113,54 @@ public class AddInfluxDBTests
     }
 
     [Theory]
+    [InlineData("config")]
+    [InlineData(null)]
+    public void CorrectTargetPathOnConfigVolumeMount(string? volumeName)
+    {
+        var builder = DistributedApplication.CreateBuilder();
+        _ = builder.AddInfluxDB("influxdb").WithConfigVolume(volumeName);
+
+        using var app = builder.Build();
+
+        var appModel = app.Services.GetRequiredService<DistributedApplicationModel>();
+
+        var resource = Assert.Single(appModel.Resources.OfType<InfluxDBServerResource>());
+
+        Assert.True(resource.TryGetAnnotationsOfType<ContainerMountAnnotation>(out var annotations));
+
+        var annotation = Assert.Single(annotations);
+
+        Assert.Equal("/etc/influxdb2", annotation.Target);
+    }
+
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void ReadOnlyVolumeMount(bool isReadOnly)
+    public void ReadOnlyDataVolumeMount(bool isReadOnly)
     {
         var builder = DistributedApplication.CreateBuilder();
         _ = builder.AddInfluxDB("influxdb").WithDataVolume(isReadOnly: isReadOnly);
+
+        using var app = builder.Build();
+
+        var appModel = app.Services.GetRequiredService<DistributedApplicationModel>();
+
+        var resource = Assert.Single(appModel.Resources.OfType<InfluxDBServerResource>());
+
+        Assert.True(resource.TryGetAnnotationsOfType<ContainerMountAnnotation>(out var annotations));
+
+        var annotation = Assert.Single(annotations);
+
+        Assert.Equal(isReadOnly, annotation.IsReadOnly);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReadOnlyConfigVolumeMount(bool isReadOnly)
+    {
+        var builder = DistributedApplication.CreateBuilder();
+        _ = builder.AddInfluxDB("influxdb").WithConfigVolume(isReadOnly: isReadOnly);
 
         using var app = builder.Build();
 
