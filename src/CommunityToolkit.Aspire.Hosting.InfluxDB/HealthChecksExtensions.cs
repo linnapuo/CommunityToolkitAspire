@@ -2,7 +2,6 @@
 using InfluxDB.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System.Data.Common;
 
 namespace CommunityToolkit.Aspire.Hosting.InfluxDB;
 

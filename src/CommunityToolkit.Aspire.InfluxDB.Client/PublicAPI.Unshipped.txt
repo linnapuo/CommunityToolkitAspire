@@ -8,8 +8,6 @@ CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.g
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.set -> void
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.get -> string?
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.set -> void
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DatabaseName.get -> string?
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DatabaseName.set -> void
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableHealthChecks.get -> bool
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableHealthChecks.set -> void
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableTracing.get -> bool

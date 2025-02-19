@@ -28,11 +28,6 @@ public sealed class InfluxDBClientSettings
     public X509Certificate2? Certificate { get; set; }
 
     /// <summary>
-    /// The name of the database to connect to.
-    /// </summary>
-    public string? DatabaseName { get; set; }
-
-    /// <summary>
     /// Gets or sets a boolean value that indicates whether InfluxDB health check is disabled or not.
     /// The default value is <see langword="false"/>.
     /// </summary>
