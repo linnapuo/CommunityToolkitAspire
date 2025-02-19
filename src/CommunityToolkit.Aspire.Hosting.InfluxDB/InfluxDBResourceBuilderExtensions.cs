@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Aspire.Hosting.ApplicationModel;
+using Aspire.Hosting.Utils;
 using CommunityToolkit.Aspire.Hosting.InfluxDB;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -77,5 +78,21 @@ public static class InfluxDBResourceBuilderExtensions
                 context.EnvironmentVariables["DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"] = tokenParameter;
             })
             .WithHealthCheck(healthCheckKey);
+    }
+
+    /// <summary>
+    /// Adds a named volume for the data folder to a InfluxDB container resource.
+    /// </summary>
+    /// <param name="builder">The resource builder for the InfluxDB server.</param>
+    /// <param name="name">Optional name for the volume. Defaults to a generated name if not provided.</param>
+    /// <param name="isReadOnly">Indicates whether the volume should be read-only. Defaults to false.</param>
+    /// <returns>The <see cref="IResourceBuilder{T}"/> for the InfluxDB server resource.</returns>
+    public static IResourceBuilder<InfluxDBServerResource> WithDataVolume(this IResourceBuilder<InfluxDBServerResource> builder, string? name = null, bool isReadOnly = false)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
+#pragma warning disable CTASPIRE001
+        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "data"), "/var/lib/influxdb2", isReadOnly);
+#pragma warning restore CTASPIRE001
     }
 }
