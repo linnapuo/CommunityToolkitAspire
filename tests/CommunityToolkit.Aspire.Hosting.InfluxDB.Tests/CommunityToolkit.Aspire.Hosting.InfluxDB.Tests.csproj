@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\examples\influxdb\CommunityToolkit.Aspire.Hosting.InfluxDB.AppHost\CommunityToolkit.Aspire.Hosting.InfluxDB.AppHost.csproj" />
     <ProjectReference Include="..\..\src\CommunityToolkit.Aspire.Hosting.InfluxDB\CommunityToolkit.Aspire.Hosting.InfluxDB.csproj" />
+    <ProjectReference Include="..\..\src\CommunityToolkit.Aspire.InfluxDB.Client\CommunityToolkit.Aspire.InfluxDB.Client.csproj" />
     <ProjectReference Include="..\CommunityToolkit.Aspire.Testing\CommunityToolkit.Aspire.Testing.csproj" />
   </ItemGroup>
 

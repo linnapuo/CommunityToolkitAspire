@@ -2,7 +2,6 @@
 using InfluxDB.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Data.Common;
 
 namespace Microsoft.Extensions.Hosting;
 
@@ -105,17 +104,16 @@ public static class InfluxDBClientExtension
     {
         ValidateSettings(builder, settings);
 
-        var influxClient = new InfluxDBClient(settings.ConnectionString);
-
         if (serviceKey is null)
         {
-            builder.Services
-                .AddSingleton<IInfluxDBClient>(influxClient);
+            builder.Services.AddTransient<IInfluxDBClient, InfluxDBClient>(
+                sp => new InfluxDBClient(settings.ConnectionString));
         }
         else
         {
-            builder.Services
-                .AddKeyedSingleton<IInfluxDBClient>(serviceKey, influxClient);
+            builder.Services.AddKeyedTransient<IInfluxDBClient, InfluxDBClient>(
+                serviceKey,
+                (sp, serviceKey) => new InfluxDBClient(settings.ConnectionString));
         }
 
         if (!settings.DisableTracing)

@@ -1,5 +1,9 @@
 ﻿using Aspire.Components.Common.Tests;
 using CommunityToolkit.Aspire.Testing;
+using InfluxDB.Client;
+using InfluxDB.Client.Api.Domain;
+using InfluxDB.Client.Writes;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace CommunityToolkit.Aspire.Hosting.InfluxDB.Tests;
@@ -29,5 +33,44 @@ public class AppHostTests(AspireIntegrationTestFixture<Projects.CommunityToolkit
         var serverConnectionString = await serverResource.ConnectionStringExpression.GetValueAsync(cancellationToken.Token);
         Assert.False(string.IsNullOrWhiteSpace(serverConnectionString));
         Assert.Contains(endpoint.OriginalString, serverConnectionString);
+
+        // Create InfluxDB Client
+
+        var clientBuilder = Host.CreateApplicationBuilder();
+        clientBuilder.Configuration.AddInMemoryCollection([
+            new KeyValuePair<string, string?>($"ConnectionStrings:{connectionName}", serverConnectionString)
+        ]);
+
+        clientBuilder.AddInfluxDBClient(connectionName);
+        var host = clientBuilder.Build();
+
+        using var client = host.Services.GetRequiredService<IInfluxDBClient>();
+
+        var writeApi = client.GetWriteApiAsync();
+        var point = PointData.Measurement("altitude")
+                    .Tag("plane", "test-plane")
+                    .Field("value", 1234)
+                    .Timestamp(new DateTime(2025, 02, 01, 00, 00, 00, DateTimeKind.Utc), WritePrecision.Ns);
+
+        await writeApi.WritePointAsync(point, "testbucket", "testorg");
+
+        var queryApi = client.GetQueryApi();
+        var tables = await queryApi.QueryAsync("from(bucket:\"testbucket\") |> range(start: 0)", "testorg");
+        var results = tables.SelectMany(table => table.Records.Select(record => new AltitudeModel
+        {
+            Time = record.GetTimeInDateTime(),
+            Altitude = int.Parse(record.GetValue().ToString()!)
+        }))
+        .ToList();
+
+        var result = Assert.Single(results);
+        Assert.Equal(new DateTime(2025, 02, 01, 00, 00, 00, DateTimeKind.Utc), result.Time);
+        Assert.Equal(1234, result.Altitude);
+    }
+
+    private class AltitudeModel
+    {
+        public required DateTime? Time { get; init; }
+        public required int Altitude { get; init; }
     }
 }
