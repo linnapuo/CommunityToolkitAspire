@@ -90,4 +90,46 @@ public class AddInfluxDBTests
 
         Assert.Equal("data", annotation.Source);
     }
+
+    [Theory]
+    [InlineData("data")]
+    [InlineData(null)]
+    public void CorrectTargetPathOnVolumeMount(string? volumeName)
+    {
+        var builder = DistributedApplication.CreateBuilder();
+        _ = builder.AddInfluxDB("influxdb").WithDataVolume(volumeName);
+
+        using var app = builder.Build();
+
+        var appModel = app.Services.GetRequiredService<DistributedApplicationModel>();
+
+        var resource = Assert.Single(appModel.Resources.OfType<InfluxDBServerResource>());
+
+        Assert.True(resource.TryGetAnnotationsOfType<ContainerMountAnnotation>(out var annotations));
+
+        var annotation = Assert.Single(annotations);
+
+        Assert.Equal("/var/lib/influxdb2", annotation.Target);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReadOnlyVolumeMount(bool isReadOnly)
+    {
+        var builder = DistributedApplication.CreateBuilder();
+        _ = builder.AddInfluxDB("influxdb").WithDataVolume(isReadOnly: isReadOnly);
+
+        using var app = builder.Build();
+
+        var appModel = app.Services.GetRequiredService<DistributedApplicationModel>();
+
+        var resource = Assert.Single(appModel.Resources.OfType<InfluxDBServerResource>());
+
+        Assert.True(resource.TryGetAnnotationsOfType<ContainerMountAnnotation>(out var annotations));
+
+        var annotation = Assert.Single(annotations);
+
+        Assert.Equal(isReadOnly, annotation.IsReadOnly);
+    }
 }
