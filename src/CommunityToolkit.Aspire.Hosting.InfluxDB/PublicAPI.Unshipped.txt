@@ -6,8 +6,3 @@ Aspire.Hosting.ApplicationModel.InfluxDBServerResource.ConnectionStringExpressio
 Aspire.Hosting.ApplicationModel.InfluxDBServerResource.Token.get -> Aspire.Hosting.ApplicationModel.ParameterResource!
 Aspire.Hosting.InfluxDBResourceBuilderExtensions
 static Aspire.Hosting.InfluxDBResourceBuilderExtensions.AddInfluxDB(this Aspire.Hosting.IDistributedApplicationBuilder! builder, string! name, Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.ParameterResource!>? token = null, int? port = null) -> Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.InfluxDBServerResource!>!
-CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings
-CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.InfluxDBServerSettings() -> void
-CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.ServerUrl.get -> string?
-CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.ServerUrl.set -> void
-static CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings.Unsecured() -> CommunityToolkit.Aspire.Hosting.InfluxDB.InfluxDBServerSettings!

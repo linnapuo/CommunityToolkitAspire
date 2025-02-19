@@ -20,7 +20,7 @@ public class AddInfluxDBTests
     [Fact]
     public void VerifyNonDefaultImageTag()
     {
-        const string tag = "windows-latest-lts";
+        const string tag = "2.7";
 
         var builder = DistributedApplication.CreateBuilder();
         builder.AddInfluxDB("influxdb").WithImageTag(tag);
