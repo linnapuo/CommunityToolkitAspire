@@ -70,4 +70,24 @@ public class AddInfluxDBTests
 
         Assert.Equal(12345, endpoint.Port);
     }
+
+
+    [Fact]
+    public void SpecifiedDataVolumeNameIsUsed()
+    {
+        var builder = DistributedApplication.CreateBuilder();
+        _ = builder.AddInfluxDB("influxdb").WithDataVolume("data");
+
+        using var app = builder.Build();
+
+        var appModel = app.Services.GetRequiredService<DistributedApplicationModel>();
+
+        var resource = Assert.Single(appModel.Resources.OfType<InfluxDBServerResource>());
+
+        Assert.True(resource.TryGetAnnotationsOfType<ContainerMountAnnotation>(out var annotations));
+
+        var annotation = Assert.Single(annotations);
+
+        Assert.Equal("data", annotation.Source);
+    }
 }
