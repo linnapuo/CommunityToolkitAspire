@@ -73,6 +73,7 @@ public static class InfluxDBResourceBuilderExtensions
             .WithEnvironment("DOCKER_INFLUXDB_INIT_PASSWORD", "testpass")
             .WithEnvironment("DOCKER_INFLUXDB_INIT_ORG", "testorg")
             .WithEnvironment("DOCKER_INFLUXDB_INIT_BUCKET", "testbucket")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_RETENTION", "1w")
             .WithEnvironment(context =>
             {
                 context.EnvironmentVariables["DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"] = tokenParameter;
@@ -81,7 +82,7 @@ public static class InfluxDBResourceBuilderExtensions
     }
 
     /// <summary>
-    /// Adds a named volume for the data folder to a InfluxDB container resource.
+    /// Adds a named volume for the data directory to a InfluxDB container resource.
     /// </summary>
     /// <param name="builder">The resource builder for the InfluxDB server.</param>
     /// <param name="name">Optional name for the volume. Defaults to a generated name if not provided.</param>
@@ -92,7 +93,53 @@ public static class InfluxDBResourceBuilderExtensions
         ArgumentNullException.ThrowIfNull(builder);
 
 #pragma warning disable CTASPIRE001
-        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "data"), "/var/lib/influxdb2", isReadOnly);
+        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "influxdb2-data"), "/var/lib/influxdb2", isReadOnly);
 #pragma warning restore CTASPIRE001
+    }
+
+    /// <summary>
+    /// Adds a bind mount for the data directory to a InfluxDB container resource.
+    /// </summary>
+    /// <param name="builder">The resource builder for the InfluxDB server.</param>
+    /// <param name="source">The source directory on the host to mount into the container.</param>
+    /// <param name="isReadOnly">Indicates whether the bind mount should be read-only. Defaults to false.</param>
+    /// <returns>The <see cref="IResourceBuilder{T}"/> for the InfluxDB server resource.</returns>
+    public static IResourceBuilder<InfluxDBServerResource> WithDataBindMount(this IResourceBuilder<InfluxDBServerResource> builder, string source, bool isReadOnly = false)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(source);
+
+        return builder.WithBindMount(source, "/var/lib/influxdb2", isReadOnly);
+    }
+
+    /// <summary>
+    /// Adds a named volume for the configuration directory to a InfluxDB container resource.
+    /// </summary>
+    /// <param name="builder">The resource builder for the InfluxDB server.</param>
+    /// <param name="name">Optional name for the volume. Defaults to a generated name if not provided.</param>
+    /// <param name="isReadOnly">Indicates whether the volume should be read-only. Defaults to false.</param>
+    /// <returns>The <see cref="IResourceBuilder{T}"/> for the InfluxDB server resource.</returns>
+    public static IResourceBuilder<InfluxDBServerResource> WithConfigVolume(this IResourceBuilder<InfluxDBServerResource> builder, string? name = null, bool isReadOnly = false)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
+#pragma warning disable CTASPIRE001
+        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "influxdb2-config"), "/etc/influxdb2", isReadOnly);
+#pragma warning restore CTASPIRE001
+    }
+
+    /// <summary>
+    /// Adds a bind mount for the configuration directory to a InfluxDB container resource.
+    /// </summary>
+    /// <param name="builder">The resource builder for the InfluxDB server.</param>
+    /// <param name="source">The source directory on the host to mount into the container.</param>
+    /// <param name="isReadOnly">Indicates whether the bind mount should be read-only. Defaults to false.</param>
+    /// <returns>The <see cref="IResourceBuilder{T}"/> for the InfluxDB server resource.</returns>
+    public static IResourceBuilder<InfluxDBServerResource> WithConfigBindMount(this IResourceBuilder<InfluxDBServerResource> builder, string source, bool isReadOnly = false)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(source);
+
+        return builder.WithBindMount(source, "/etc/influxdb2", isReadOnly);
     }
 }
