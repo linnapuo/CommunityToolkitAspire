@@ -182,18 +182,9 @@ public static class InfluxDBClientExtension
             throw new ArgumentNullException(nameof(settings.ConnectionString), "Connection string must be provided.");
         }
 
-        if (!IsValidUrl(settings.ConnectionString, out var uri))
+        if (!IsValidUrl(settings.ConnectionString, out _))
         {
             throw new ArgumentException($"The provided connection string '{settings.ConnectionString}' is invalid. Please provide a valid HTTP or HTTPS URL.");
-        }
-
-        if (uri!.Scheme == Uri.UriSchemeHttps)
-        {
-            if (string.IsNullOrEmpty(settings.CertificatePath) && settings.Certificate is null)
-            {
-                throw new ArgumentNullException(nameof(settings.Certificate), "A valid certificate must be provided in 'InfluxDBClientSettings.Certificate' " +
-                    "or a certificate path in 'InfluxDBClientSettings.CertificatePath' when using HTTPS.");
-            }
         }
     }
 

@@ -1,11 +1,5 @@
 #nullable enable
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.Certificate.get -> System.Security.Cryptography.X509Certificates.X509Certificate2?
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.Certificate.set -> void
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePassword.get -> string?
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePassword.set -> void
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.get -> string?
-CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.CertificatePath.set -> void
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.get -> string?
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.ConnectionString.set -> void
 CommunityToolkit.Aspire.InfluxDB.Client.InfluxDBClientSettings.DisableHealthChecks.get -> bool
