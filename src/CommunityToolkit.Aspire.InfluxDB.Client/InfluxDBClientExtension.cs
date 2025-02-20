@@ -23,7 +23,7 @@ public static class InfluxDBClientExtension
     /// <remarks>Notes:
     /// <list type="bullet">
     /// <item><description>Reads the configuration from "Aspire:InfluxDB:Client" section.</description></item>
-    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a singleton, meaning a single instance is shared throughout the application's lifetime.</description></item>
+    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a transient, meaning a new instance is provided each time the client gets resolved.</description></item>
     /// </list>
     /// </remarks>
     public static void AddInfluxDBClient(
@@ -47,7 +47,7 @@ public static class InfluxDBClientExtension
     /// <remarks>Notes:
     /// <list type="bullet">
     /// <item><description>Reads the configuration from "Aspire:InfluxDB:Client" section.</description></item>
-    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a singleton, meaning a single instance is shared throughout the application's lifetime.</description></item>
+    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a transient, meaning a new instance is provided each time the client gets resolved.</description></item>
     /// </list>
     /// </remarks>
     public static void AddKeyedInfluxDBClient(
@@ -68,7 +68,7 @@ public static class InfluxDBClientExtension
     /// <param name="settings">The settings required to configure the <see cref="IInfluxDBClient"/>.</param>
     /// <remarks>Notes:
     /// <list type="bullet">
-    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a singleton, meaning a single instance is shared throughout the application's lifetime.</description></item>
+    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a transient, meaning a new instance is provided each time the client gets resolved.</description></item>
     /// </list>
     /// </remarks>
     public static void AddInfluxDBClient(
@@ -86,7 +86,7 @@ public static class InfluxDBClientExtension
     /// <param name="settings">The settings required to configure the <see cref="IInfluxDBClient"/>.</param>
     /// <remarks>Notes:
     /// <list type="bullet">
-    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a singleton, meaning a single instance is shared throughout the application's lifetime.</description></item>
+    /// <item><description>The <see cref="IInfluxDBClient"/> is registered as a transient, meaning a new instance is provided each time the client gets resolved.</description></item>
     /// </list>
     /// </remarks>
     public static void AddKeyedInfluxDBClient(

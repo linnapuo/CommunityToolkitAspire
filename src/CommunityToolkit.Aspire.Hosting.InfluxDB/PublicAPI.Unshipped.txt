@@ -1,9 +1,7 @@
 #nullable enable
 Aspire.Hosting.ApplicationModel.InfluxDBServerResource
-Aspire.Hosting.ApplicationModel.InfluxDBServerResource.InfluxDBServerResource(string! name, Aspire.Hosting.ApplicationModel.ParameterResource! token, bool isSecured = false) -> void
-Aspire.Hosting.ApplicationModel.InfluxDBServerResource.PrimaryEndpoint.get -> Aspire.Hosting.ApplicationModel.EndpointReference!
+Aspire.Hosting.ApplicationModel.InfluxDBServerResource.InfluxDBServerResource(string! name, Aspire.Hosting.ApplicationModel.ParameterResource! token) -> void
 Aspire.Hosting.ApplicationModel.InfluxDBServerResource.ConnectionStringExpression.get -> Aspire.Hosting.ApplicationModel.ReferenceExpression!
-Aspire.Hosting.ApplicationModel.InfluxDBServerResource.Token.get -> Aspire.Hosting.ApplicationModel.ParameterResource!
 Aspire.Hosting.InfluxDBResourceBuilderExtensions
 static Aspire.Hosting.InfluxDBResourceBuilderExtensions.AddInfluxDB(this Aspire.Hosting.IDistributedApplicationBuilder! builder, string! name, Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.ParameterResource!>? token = null, int? port = null) -> Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.InfluxDBServerResource!>!
 static Aspire.Hosting.InfluxDBResourceBuilderExtensions.WithConfigBindMount(this Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.InfluxDBServerResource!>! builder, string! source, bool isReadOnly = false) -> Aspire.Hosting.ApplicationModel.IResourceBuilder<Aspire.Hosting.ApplicationModel.InfluxDBServerResource!>!
