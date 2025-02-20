@@ -52,10 +52,10 @@ public class AppHostTests(AspireIntegrationTestFixture<Projects.CommunityToolkit
                     .Field("value", 1234)
                     .Timestamp(new DateTime(2025, 02, 01, 00, 00, 00, DateTimeKind.Utc), WritePrecision.Ns);
 
-        await writeApi.WritePointAsync(point, "testbucket", "testorg");
+        await writeApi.WritePointAsync(point, "my-bucket", "my-org");
 
         var queryApi = client.GetQueryApi();
-        var tables = await queryApi.QueryAsync("from(bucket:\"testbucket\") |> range(start: 0)", "testorg");
+        var tables = await queryApi.QueryAsync("from(bucket:\"my-bucket\") |> range(start: 0)", "my-org");
         var results = tables.SelectMany(table => table.Records.Select(record => new AltitudeModel
         {
             Time = record.GetTimeInDateTime(),
