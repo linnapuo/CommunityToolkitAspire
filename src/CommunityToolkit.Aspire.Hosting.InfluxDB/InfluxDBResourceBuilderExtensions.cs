@@ -22,7 +22,7 @@ public static class InfluxDBResourceBuilderExtensions
     /// <param name="name">The name of the resource. This name will be used as the connection string name when referenced in a dependency.</param>
     /// <param name="token">The parameter used to provide the operator token for the InfluxDB. If <see langword="null"/> a random token will be generated.</param>
     /// <param name="port">The host port used when launching the container. If null a random port will be assigned.</param>
-    /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <returns>The <see cref="IResourceBuilder{T}"/> for the InfluxDB server resource.</returns>
     /// <remarks>
     /// <para>
     /// This resource includes built-in health checks. When this resource is referenced as a dependency
@@ -65,15 +65,14 @@ public static class InfluxDBResourceBuilderExtensions
 
         return builder
             .AddResource(influxDBServer)
-            .WithEndpoint(port: port, targetPort: InfluxDBServerPort, scheme: influxDBServer.PrimaryEndpointName)
+            .WithEndpoint(port: port, targetPort: InfluxDBServerPort, scheme: InfluxDBServerResource.PrimaryEndpointName, isProxied: false)
             .WithImage(InfluxDBContainerImageTags.Image, InfluxDBContainerImageTags.Tag)
             .WithImageRegistry(InfluxDBContainerImageTags.Registry)
             .WithEnvironment("DOCKER_INFLUXDB_INIT_MODE", "setup")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_USERNAME", "testuser")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_PASSWORD", "testpass")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_ORG", "testorg")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_BUCKET", "testbucket")
-            .WithEnvironment("DOCKER_INFLUXDB_INIT_RETENTION", "1w")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_USERNAME", "username")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_PASSWORD", "password")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_ORG", "my-org")
+            .WithEnvironment("DOCKER_INFLUXDB_INIT_BUCKET", "my-bucket")
             .WithEnvironment(context =>
             {
                 context.EnvironmentVariables["DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"] = tokenParameter;
