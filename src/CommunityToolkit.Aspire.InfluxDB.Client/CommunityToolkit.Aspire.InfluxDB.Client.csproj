@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <Description>A .NET Aspire client integration for the InfluxDB.Client library.</Description>
+    <AdditionalPackageTags>client influxdb</AdditionalPackageTags>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.InfluxDB" />
     <PackageReference Include="InfluxDB.Client" />
