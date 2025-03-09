@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Aspire.Hosting.ApplicationModel;
-using Aspire.Hosting.Utils;
 using CommunityToolkit.Aspire.Hosting.InfluxDB;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -91,9 +90,7 @@ public static class InfluxDBResourceBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-#pragma warning disable CTASPIRE001
-        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "influxdb2-data"), "/var/lib/influxdb2", isReadOnly);
-#pragma warning restore CTASPIRE001
+        return builder.WithVolume(name ?? VolumeNameGenerator.Generate(builder, "influxdb2-data"), "/var/lib/influxdb2", isReadOnly);
     }
 
     /// <summary>
@@ -122,9 +119,7 @@ public static class InfluxDBResourceBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-#pragma warning disable CTASPIRE001
-        return builder.WithVolume(name ?? VolumeNameGenerator.CreateVolumeName(builder, "influxdb2-config"), "/etc/influxdb2", isReadOnly);
-#pragma warning restore CTASPIRE001
+        return builder.WithVolume(name ?? VolumeNameGenerator.Generate(builder, "influxdb2-config"), "/etc/influxdb2", isReadOnly);
     }
 
     /// <summary>
